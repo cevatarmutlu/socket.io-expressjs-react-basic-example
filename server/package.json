@@ -12,6 +12,8 @@
   "license": "ISC",
   "dependencies": {
     "express": "^4.17.1",
+    "install": "^0.13.0",
+    "mongoose": "^5.10.13",
     "socket.io": "^3.0.0"
   },
   "devDependencies": {
