@@ -12,6 +12,11 @@ router.get("/products", async (req, res) => {
     res.json(products);
 });
 
+router.get("/product/:id", async (req, res) => {
+    const product = await Product.findById(req.params.id);
+    res.json([product]);
+});
+
 /*
     {
         name: {type: String},
@@ -27,7 +32,7 @@ router.get("/product-add", async (req, res) => {
     const product = new Product(
         {
             name: "sen ağlama bir damla göz yaşın yeter",
-            img: "sen üzülmü gülüm gamzende güllerin biter",
+            img: "server/src/data/images/pc1.jpg",
             price: 15.65,
             price_history: a,
             category: "badem - sen ağlama",
@@ -38,6 +43,12 @@ router.get("/product-add", async (req, res) => {
             .then(() => console.log("Product Created"));
 
             res.send("Product Created \n");
+});
+
+router.get("/deleteOne", async (req, res) => {
+    const products = await Product.findByIdAndDelete("5fa68df47fec0d53f3153c4e");
+
+    res.send("asdf");
 });
 
 module.exports = router;
