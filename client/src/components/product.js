@@ -1,6 +1,7 @@
 import React from "react";
 import axios from "axios";
 import "../css/product.css";
+import RealPrice from "./realtime-price";
 
 class Product extends React.Component {
   constructor(props) {
@@ -34,6 +35,13 @@ class Product extends React.Component {
 
 
   render() {
+    let price;
+    console.log(this.state.data);
+    if (this.state.data.length <= 0) {
+      price = "";
+    }else {
+      price = <RealPrice price_id={this.state.data[0]._id} />;
+    }
   return (
     <div>
       {<table className="table table-bordered">
@@ -49,6 +57,7 @@ class Product extends React.Component {
           {this.dataRender()}
         </tbody>
       </table> }
+      {price}
     </div>
     );
   }
