@@ -18,23 +18,22 @@ const io = socketIo(server, { origins: '*:*', cors: true});
 let interval;
 
 io.on("connection", (socket) => {
-  console.log("New client connected");
   if (interval) {
     clearInterval(interval);
   }
   interval = setInterval(() => getApiAndEmit(socket), 1000);
+
   socket.on("disconnect", () => {
-    console.log("Client disconnected");
     clearInterval(interval);
   });
 });
 
 const getApiAndEmit = async (socket) => {
-  console.log(socket.handshake.query);
   const response = await Product.findById(socket.handshake.query.id);
   const date = new Date();
   // Emitting a new message. Will be consumed by the client
   socket.emit("RealTimePrice", {price: response.price, date: date});
+  socket.emit("RealTimeProduct", {data: response, date: date});
 };
 
 server.listen(port, () => console.log(`Listening on port ${port}`));

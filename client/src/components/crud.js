@@ -23,11 +23,17 @@ class CRUD extends Component {
   render() {
   return (
     <div>
+      <Link to="/add">
+        <button>
+          Add Product
+        </button>
+      </Link>
       <table>
         <thead>
           <tr>
             <th>Name</th>
             <th>_id</th>
+            <th>Edit Button</th>
           </tr>
         </thead>
         <tbody>
@@ -42,6 +48,13 @@ class CRUD extends Component {
                       </Link>
                   </td>
                   <td>{x._id}</td>
+                  <td>
+                    <Link to={`/edit/${x._id}`}>
+                      <button>
+                        Edit me
+                      </button>
+                    </Link>
+                  </td>
                 </tr>
               )
             })

@@ -1,3 +1,4 @@
+const { json } = require("express");
 const express = require("express");
 const router = express.Router();
 const connectDB = require("../connection");
@@ -27,28 +28,29 @@ router.get("/product/:id", async (req, res) => {
     }
 */
 
-router.get("/product-add", async (req, res) => {
-    const a = new Date();
-    const product = new Product(
-        {
-            name: "sen ağlama bir damla göz yaşın yeter",
-            img: "server/src/data/images/pc1.jpg",
-            price: 15.65,
-            price_history: a,
-            category: "badem - sen ağlama",
-        }
-    );
+router.get("/add", async (req, res) => {
+    const data = JSON.parse(req.query.data);
+    console.log(data);
+    const product = new Product(data);
     await product
             .save()
             .then(() => console.log("Product Created"));
 
-            res.send("Product Created \n");
+    res.send("Product Created \n");
 });
 
 router.get("/deleteOne", async (req, res) => {
     const products = await Product.findByIdAndDelete("5fa68df47fec0d53f3153c4e");
 
     res.send("asdf");
+});
+
+router.get("/edit/:id", async (req, res) => {
+    console.log(req.query);
+    Product.findOneAndUpdate({_id: req.params.id}, JSON.parse(req.query.data), {upsert: true}, function(err, doc) {
+        if (err) return res.send(500, {error: err});
+        return res.send('Succesfully saved.');
+    });
 });
 
 module.exports = router;
