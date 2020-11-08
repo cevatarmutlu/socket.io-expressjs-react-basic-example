@@ -25,9 +25,9 @@ MongoDB veritabanı docker üzerinden kullanılmaktadır. Çalıştırmak için 
 
 ```bash
     cd server
-    npm run dev
+    npm run dev # localhost:4002
     cd ../client
-    npm start
+    npm start # localhost:3000
 ```
 
 ## Info
